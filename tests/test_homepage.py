@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 
-def test_login_page():
+def test_homepage():
     driver.get("https://www.rosariosis.org/")
     wait = WebDriverWait(driver, 20)
 
@@ -27,13 +27,8 @@ def test_login_page():
     print("Login test passed! Redirected to:", driver.current_url)
 
 # tests/test_homepage.py
-
-def test_dummy():
-    assert True
-
-
 # Run the test
 driver = webdriver.Chrome()
-test_login_page()
+test_homepage()
 driver.quit()
 
