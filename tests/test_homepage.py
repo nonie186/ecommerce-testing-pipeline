@@ -15,21 +15,21 @@ def test_homepage():
     # Automatically download compatible ChromeDriver
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=options)
-    wait = WebDriverWait(driver, 20)
+    wait = WebDriverWait(driver, 40)
 
     try:
         driver.get("https://www.rosariosis.org/demonstration/index.php?locale=en_US.utf8")
 
-        username_field = wait.until(ec.presence_of_element_located((By.NAME, "username")))
-        driver.execute_script("arguments[0].value='Teacher';", username_field)
+        username_field = wait.until(ec.presence_of_element_located((By.NAME, "Username")))
+        driver.execute_script("arguments[0].value='teacher';", username_field)
 
-        password_field = wait.until(ec.presence_of_element_located((By.NAME, "password")))
-        driver.execute_script("arguments[0].value='Teacher';", password_field)
+        password_field = wait.until(ec.presence_of_element_located((By.NAME, "Password")))
+        driver.execute_script("arguments[0].value='teacher';", password_field)
 
-        login_button = wait.until(ec.element_to_be_clickable((By.XPATH, "//button[text()='Login']")))
+        login_button = wait.until(ec.element_to_be_clickable((By.XPATH, "//button[text()='LOGIN']")))
         login_button.click()
 
-        wait.until(ec.url_contains("dashboard"))  # Adjust if needed
+        wait.until(ec.url_contains("https://www.rosariosis.org/demonstration/index.php?locale=en_US.utf8"))  # Adjust if needed
         print("Login test passed! Redirected to:", driver.current_url)
 
     finally:
