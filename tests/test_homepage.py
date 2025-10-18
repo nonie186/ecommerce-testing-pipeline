@@ -18,7 +18,7 @@ def test_homepage():
     wait = WebDriverWait(driver, 20)
 
     try:
-        driver.get("https://www.rosariosis.org/demonstration/")
+        driver.get("https://www.rosariosis.org/demonstration/index.php?locale=en_US.utf8")
 
         username_field = wait.until(ec.presence_of_element_located((By.NAME, "username")))
         driver.execute_script("arguments[0].value='Teacher';", username_field)
