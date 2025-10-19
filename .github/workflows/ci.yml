@@ -1,34 +1,35 @@
-name: CI Pipeline
+name: CI with Selenium and SonarCloud
 
 on:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  test:
+  test-and-analyze:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
 
-      - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+        pip install pytest
 
-      - name: Run Selenium tests
-        run: |
-          pytest tests/
+    - name: Run Selenium tests
+      run: pytest tests/
 
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@v2
-        with:
-          projectKey: nonie186_ecommerce-testing-pipeline
-          organization: nonie186
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarcloud-github-action@v2
+      with:
+        projectKey: ${{ secrets.SONAR_PROJECT_KEY }}
+        organization: ${{ secrets.SONAR_ORGANIZATION }}
+        token: ${{ secrets.SONAR_TOKEN }}
